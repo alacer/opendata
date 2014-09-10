@@ -50,7 +50,8 @@ googleAnalytics(),
       ),
       
       leafletMap("map", width="100%", height="100%",
-        initialTileLayer = "http://{s}.tiles.mapbox.com/v3/kseibel.jfenn0bc/{z}/{x}/{y}.png",
+        initialTileLayer = "http://{s}.tiles.mapbox.com/v3/edsar.jffg53oa/{z}/{x}/{y}.png",
+        #https://a.tiles.mapbox.com/v4/edsar.jffg53oa/page.html?access_token=pk.eyJ1IjoiZWRzYXIiLCJhIjoibVNOVm5qWSJ9.knfnQVlYJH-qK0yIgRsxrA#4/40.04/-102.57
         initialTileLayerAttribution = HTML('Maps by <a href="http://www.mapbox.com/">Mapbox</a>'),
         options=list(
             center = c(39.8106, -128.5561),
