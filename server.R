@@ -30,8 +30,8 @@ shinyServer(function(input, output, session) {
       return(NULL)
     } 
    # if(!is.null(dataInput())){
-    alldata <- dataInput()    
-   #
+    alldata <- dataInput() 
+
     alldata$TR <- as.character(alldata$TR)
     alldata$DateTime <- as.POSIXct(alldata$TR, format="%m/%d/%Y %H:%M")
     if(is.na(alldata$DateTime[1])==TRUE){
@@ -64,6 +64,17 @@ shinyServer(function(input, output, session) {
       
     return(alldata)
   })
+
+  observe({
+    if(!is.null(cleandata())){
+      latdist <- abs(max(cleandata()$LAT)-min(cleandata()$LAT))*.05
+      longdist <- abs(max(cleandata()$LONG)-min(cleandata()$LONG))*.05
+      map$fitBounds(min(cleandata()$LAT)-latdist, min(cleandata()$LONG)-longdist,
+        max(cleandata()$LAT)+latdist, max(cleandata()$LONG)+longdist)
+    }
+  })
+
+
   
   ## Interactive Map ###########################################
 
@@ -165,7 +176,7 @@ shinyServer(function(input, output, session) {
         if(nrow(pointInBounds())>0){
       if(nrow(pointInSubset())>0){
      # data <- pointInSubset()
-      colorBy <- "darkblue"
+      colorBy <- "darkgreen"
       scalefactor <- c(10000)
     
        map$clearShapes()

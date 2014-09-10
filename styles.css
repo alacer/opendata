@@ -99,10 +99,6 @@ input#file{
   padding-bottom: 10px;
 }
 
-div#file_progress{
-  height: 0px;
-}
-
 .progress{
   margin:0;
 }
