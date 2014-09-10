@@ -1,0 +1,220 @@
+input[type="number"] {
+  max-width: 80%;
+}
+
+.navbar-inner{
+  background-color:#353535; 
+  background-image:none; 
+  box-shadow:none;
+  min-height:43px;
+}
+
+.navbar .nav>li>a {
+  color:#737373;
+  text-shadow:none;
+  box-shadow:none;
+}
+
+.navbar .nav>.active>a, 
+.navbar .nav>.active>a:hover {
+/*  background-color:#737373;
+*/color: #fff;
+  text-decoration: none;
+  background-color:#353535;
+  border-bottom-color:#fff;
+  border-bottom-width:3px;
+  border-bottom-style:solid;
+  box-shadow:none;
+}
+
+.navbar .nav>li>a:focus, 
+.navbar .nav>li>a:hover{
+  background-color:#353535;
+  border-bottom-width:3px;
+  border-bottom-style:solid;
+  border-bottom-color:#0069a6;
+  color:#0069a6;
+  box-shadow:none;
+}
+
+/*.navbar .nav>.active>a,
+.navbar .nav>.active>a:hover{
+    color:#999999;
+    background-color:#353535;
+    box-shadow:none;  
+}*/
+
+.masthead {
+min-height: 55px;
+color: #ffffff;
+background: #1a1a1a;
+width: 100%;
+top:0;
+left:0;
+}
+
+.header{
+  background: #1a1a1a;
+  left:30px;
+  margin-left:30px;
+  padding:0;
+}
+
+
+a:hover{
+  color:#ffffff;
+}
+
+#headertext{
+  color: #ffffff;
+  margin:0;
+  padding:0;
+  right: 30px;
+  top: 5px;
+  position: absolute;
+}
+
+div.outer {
+  position: fixed;
+  top: 97px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+div.about{
+margin-left: 10%;
+margin-right: 10%;
+}
+
+div.container-fluid{
+  padding: 0;
+}
+
+input#file{
+  padding-left:20px;
+  height: 25px; 
+  padding-bottom: 10px;
+}
+
+div#file_progress{
+  height: 0px;
+}
+
+.progress{
+  margin:0;
+}
+
+/* Customize fonts */
+body, label, input, button, select { 
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+}
+h1, h2, h3, h4 { font-weight: 400; }
+
+#showhide {
+  /* Appearance */
+  background-color: #fff;
+  border:none;
+}
+
+button#showhidegraphbutton{
+    background-color: #fff;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border:#ccc;
+    box-shadow: none;
+    width: 26px;
+    height: 26px;
+    opacity: 1;
+    padding:0;
+    margin:0;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#fff));
+    background-image: -webkit-linear-gradient(top,#fff,#fff); */
+    background-image: -o-linear-gradient(top,#fff,#fff);
+    background-image: linear-gradient(to bottom,#fff,#fff); */
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+button#showhidecontrolbutton{
+    background-color: #fff;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border:#ccc;
+    box-shadow: none;
+    width: 26px;
+    height: 26px;
+    opacity: 1;
+    padding:0;
+    margin:0;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#fff));
+    background-image: -webkit-linear-gradient(top,#fff,#fff); */
+    background-image: -o-linear-gradient(top,#fff,#fff);
+    background-image: linear-gradient(to bottom,#fff,#fff); */
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+button#showhidegraphbutton:hover {
+background-color: #f4f4f4;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f4f4f4),to(#f4f4f4));
+    background-image: -webkit-linear-gradient(top,#f4f4f4,#f4f4f4); */
+    background-image: -o-linear-gradient(top,#f4f4f4,#f4f4f4);
+    background-image: linear-gradient(to bottom,#f4f4f4,#f4f4f4); */
+}
+button#showhidecontrolbutton:hover {
+background-color: #f4f4f4;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f4f4f4),to(#f4f4f4));
+    background-image: -webkit-linear-gradient(top,#f4f4f4,#f4f4f4); */
+    background-image: -o-linear-gradient(top,#f4f4f4,#f4f4f4);
+    background-image: linear-gradient(to bottom,#f4f4f4,#f4f4f4); */
+}
+
+#controls {
+  /* Appearance */
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 1;
+  zoom: 1;
+}
+
+
+#graphs {
+  /* Appearance */
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.65;
+  zoom: 1;
+  transition: opacity 500ms 1s;
+}
+#graphs:hover {
+  /* Fade in while hovering */
+  opacity: 1;
+  transition-delay: 0;
+}
+
+/* Position and style citation */
+#cite {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+}
+
+/* If not using map tiles, show a white background */
+.leaflet-container {
+  background-color: white !important;
+}
