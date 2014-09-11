@@ -184,7 +184,7 @@ shinyServer(function(input, output, session) {
           map$addCircle(
             pointInSubset()$LAT, pointInSubset()$LONG,
                 scalefactor / max(5, input$map_zoom)^2,
-             pointInSubset()[,1],
+             rownames(pointInSubset()),
             list(stroke=FALSE, fill=TRUE, fillOpacity=0.6),
             list(color = colorBy)
           )
@@ -201,7 +201,7 @@ shinyServer(function(input, output, session) {
 ################################
   showPointPopup <- function(id, lat, lng) {
     popupdata <- pointInSubset()
-    selectedPoint <- popupdata[popupdata[,1]==id,]
+    selectedPoint <- popupdata[rownames(popupdata)==id,]
     content <- as.character(tagList(
       tags$h5(selectedPoint$Full.Address),
       tags$h5(paste(input$evalselect,":", sep=""), selectedPoint[[input$evalselect]]),
