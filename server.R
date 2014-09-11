@@ -6,6 +6,9 @@ library(scales)
 library(dplyr)
 library(rCharts)
 
+# increasing max Shiny file upload
+options(shiny.maxRequestSize=100*1024^2)
+
 timedims <- c(
     "Please Select:", 
     "Month"="MonthofYear", 
@@ -22,15 +25,17 @@ shinyServer(function(input, output, session) {
     inFile <- input$file
       if (is.null(inFile))
         return(NULL)
+    
     read.csv(inFile$datapath, stringsAsFactors=TRUE)
   })
   
   cleandata <- reactive({
+    #browser()
     if(is.null(dataInput())){
       return(NULL)
     } 
    # if(!is.null(dataInput())){
-    alldata <- dataInput() 
+    alldata <- dataInput()[!is.na(alldata$LAT) || !is.na(alldata$LONG),]
 
     alldata$TR <- as.character(alldata$TR)
     alldata$DateTime <- as.POSIXct(alldata$TR, format="%m/%d/%Y %H:%M")
