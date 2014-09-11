@@ -29,13 +29,16 @@ shinyServer(function(input, output, session) {
     read.csv(inFile$datapath, stringsAsFactors=TRUE)
   })
   
+  print("AAAAAAAAAAAAAAAAAA")
+
+
   cleandata <- reactive({
     #browser()
     if(is.null(dataInput())){
       return(NULL)
     } 
    # if(!is.null(dataInput())){
-    alldata <- dataInput()[!is.na(alldata$LAT) || !is.na(alldata$LONG),]
+    alldata <- dataInput()[!is.na(dataInput()$LAT) || !is.na(dataInput()$LONG),]
 
     alldata$TR <- as.character(alldata$TR)
     alldata$DateTime <- as.POSIXct(alldata$TR, format="%m/%d/%Y %H:%M")
@@ -70,16 +73,22 @@ shinyServer(function(input, output, session) {
     return(alldata)
   })
 
+  print("BBBBBBBBBBBBBBBBBB")
+
+
+
   observe({
     if(!is.null(cleandata())){
       latdist <- abs(max(cleandata()$LAT)-min(cleandata()$LAT))*.05
       longdist <- abs(max(cleandata()$LONG)-min(cleandata()$LONG))*.05
-      map$fitBounds(min(cleandata()$LAT)-latdist, min(cleandata()$LONG)-longdist,
+      isolate(
+      map$fitBounds(min(cleandata()$LAT)-latdist, min(cleandata()$LONG)-longdist-.5,
         max(cleandata()$LAT)+latdist, max(cleandata()$LONG)+longdist)
+      )
     }
   })
 
-
+  print("CCCCCCCCCCCCCCCCCCCC")
   
   ## Interactive Map ###########################################
 
@@ -88,6 +97,8 @@ shinyServer(function(input, output, session) {
 
   # Create the map
   map <- createLeafletMap(session, "map")
+
+  print("DDDDDDDDDDDDDDDDDD")
 
   output$eval <- renderUI({
     if(is.null(cleandata())){
@@ -98,7 +109,10 @@ shinyServer(function(input, output, session) {
       evalvars <- evalvars[!evalvars%in%c("DayofWeek", "MonthofYear", "HourofWeek")]    
      }
     selectInput('evalselect', 'Evaluate:', evalvars, multiple=FALSE, selectize=FALSE)
+
   })
+
+  print("EEEEEEEEEEEEEEEEEEEEE")
 
   output$evalfilter <- renderUI({
     if(is.null(input$evalselect) || input$evalselect=='Select File'){
@@ -108,7 +122,10 @@ shinyServer(function(input, output, session) {
       evalfiltervars <- c("All", levels(cleandata()[[input$evalselect]]))    
     }
     selectInput('evalfilterselect', 'Filter by:', evalfiltervars, multiple=TRUE, selectize=FALSE)
+
   })
+
+  print("FFFFFFFFFFFFFFFFFF")
 
   output$time <- renderUI({
     if(is.null(cleandata())){
@@ -119,6 +136,8 @@ shinyServer(function(input, output, session) {
     }
     selectInput('timeselect', 'Time Period:', timevars, multiple=FALSE, selectize=FALSE)
   }) 
+
+  print("GGGGGGGGGGGGGGGGG")
 
   output$timefilter <- renderUI({
     if(is.null(cleandata())){
@@ -131,7 +150,9 @@ shinyServer(function(input, output, session) {
       timefiltervars <- c("All", levels(as.factor(cleandata()[[input$timeselect]])))
     }
     selectInput('timefilterselect', 'Time Periods:', timefiltervars, multiple=TRUE, selectize=FALSE)
-  }) 
+  })
+
+  print("HHHHHHHHHHHHHHHH") 
 
   # A reactive expression that returns the set of points that are
   # in bounds right now
@@ -146,6 +167,8 @@ shinyServer(function(input, output, session) {
       LAT >= latRng[1] & LAT <= latRng[2] &
         LONG >= lngRng[1] & LONG <= lngRng[2])
   })
+
+  print("IIIIIIIIIIIIIIIIIII")
   
   
   pointInSubset <- reactive({
@@ -172,6 +195,8 @@ shinyServer(function(input, output, session) {
     return(datasubset)
   })
 
+  print("JJJJJJJJJJJJJJJJJJJJJJJJJJ")
+
   # session$onFlushed is necessary to work around a bug in the Shiny/Leaflet
   # integration; without it, the addCircle commands arrive in the browser
   # before the map is created.
@@ -182,13 +207,13 @@ shinyServer(function(input, output, session) {
       if(nrow(pointInSubset())>0){
      # data <- pointInSubset()
       colorBy <- "darkgreen"
-      scalefactor <- c(10000)
+      scalefactor <- c(5000*input$map_zoom)
     
        map$clearShapes()
 
           map$addCircle(
             pointInSubset()$LAT, pointInSubset()$LONG,
-                scalefactor / max(5, input$map_zoom)^2,
+                scalefactor / max(14, input$map_zoom)^2,
              rownames(pointInSubset()),
             list(stroke=FALSE, fill=TRUE, fillOpacity=0.6),
             list(color = colorBy)
@@ -202,6 +227,8 @@ shinyServer(function(input, output, session) {
     # attempting to write to the websocket after the session is gone.
     session$onSessionEnded(paintObs$suspend)
   })
+
+  print("KKKKKKKKKKKKKKKKKKKK")
   
 ################################
   showPointPopup <- function(id, lat, lng) {
@@ -228,7 +255,8 @@ shinyServer(function(input, output, session) {
   })
   
   session$onSessionEnded(clickObs$suspend)
-  
+ 
+ print("LLLLLLLLLLLLLLLLLLLLLLLL") 
   
   ## Data Explorer ###########################################
   
@@ -261,10 +289,10 @@ shinyServer(function(input, output, session) {
 
   plotdatar <- reactive({
   #  if(input$evalselect!="(Select File)" & input$timeselect!="(Select File)"){
-   if(!is.null(pointInSubset()) && nrow(pointInSubset())>0){
-
+   if(!is.null(pointInSubset()) && nrow(pointInSubset())>0 && 
+        input$evalselect!="(Select File)" && input$timeselect !="(Select File)"){
+    browser()
     preaggdata <- pointInSubset()
-
     preaggdata$count <- 1
     aggdata <- aggregate(preaggdata$count, 
       list(preaggdata[[input$evalselect]], 
@@ -275,6 +303,7 @@ shinyServer(function(input, output, session) {
    }
   })
 
+print("MMMMMMMMMMMMMMMMMMM")
 
   output$plot1 <- renderChart({
     if (is.null(cleandata()) || nrow(cleandata())==0 || 
@@ -311,6 +340,8 @@ shinyServer(function(input, output, session) {
     return(h1)
   })
 
+print("NNNNNNNNNNNNNNNNNNNNNN")
+
   predictiondatar <- reactive({
  #   if(input$evalselect!="(Select File)" & input$timeselect!="(Select File)"){
     if(!is.null(plotdatar()) && nrow(plotdatar())>0){
@@ -319,6 +350,8 @@ shinyServer(function(input, output, session) {
       return(tmp)
     }
   }) 
+
+  print("OOOOOOOOOOOOOOOOOOOOOO")
 
   output$plot2 <- renderChart({
     if (is.null(cleandata()) || nrow(cleandata())==0 || 
@@ -350,7 +383,7 @@ shinyServer(function(input, output, session) {
     return(h2)  
   })
 
- 
+ print("PPPPPPPPPPPPPPPPPPP")
   
   output$outtable <- renderDataTable({
 
